@@ -9,10 +9,10 @@
   <div class="card-body">
 <h1 class="mb-4">File Uploading</h1>
           <div class="col">
-              <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="customFile" type="file" multiple (change)="detectFiles($event)" #files>
-                  <label class="custom-file-label" for="customFile">Choose file</label>
-                </div>
+            <label class="custom-file d-block">
+              <input type="file" id="file" class="custom-file-input" multiple (change)="detectFiles($event)" #files>
+              <span class="custom-file-control"></span>
+            </label>
                 <p id="passwordHelpInline" class="text-muted pt-2" *ngIf="files.files.length >0">
                     <b> {{files.files.length}}</b> files are uploading
                   </p>
