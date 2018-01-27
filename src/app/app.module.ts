@@ -18,6 +18,7 @@ import { EmailComponent } from './components/email/email.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/authguard.guard';
 import { ProfileComponent } from './components/profile/profile.component';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
    { path: 'blog', component: CoursesListComponent },
@@ -51,6 +52,8 @@ const routes: Routes = [
     AngularFireAuthModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(routes, { useHash: false}),
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

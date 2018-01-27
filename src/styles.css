@@ -20,3 +20,6 @@ border-radius: 0 !important;
 
   border-top: 0 !important;
 }
+.fr-wrapper{
+  height: 200px;
+}

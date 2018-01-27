@@ -1,26 +1,53 @@
 
   <div class="row mt-4">
-      <div class="col-sm-6 mb-4" *ngFor="let course of coursesObservable | async">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{course.title}}</h5>
+    <div class="col-sm-9 col-xs-12">
+        <div class="row ">
+            <div class="col-sm-12 mb-4" *ngFor="let course of coursesObservable | async">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">{{course.title}}</h5>
 
-            <p class="card-text">{{course.description}}</p>
-            <a href="{{course.link}}" target="_blank" class="card-link">Go To Course</a>
-          </div>
-          <div class="card-footer text-muted">
+                    <p class="card-text" [innerHtml]="course.description"></p>
+                    <a href="{{course.link}}" target="_blank" class="card-link">Go To Course</a>
+                  </div>
+                  <div class="card-footer text-muted">
 
-            <div class="row">
-<div class="col">  <p class="card-text"><small class="text-muted"><i class="fa fa-user" aria-hidden="true"></i> {{course.author}} </small></p>
-</div>
-<div class="col">  <p class="card-text text-right"><small class="text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> {{course.time | date : 'short'}}</small></p>
-</div>
+                    <div class="row">
+                      <div class="col">
+                        <p class="card-text">
+                          <small class="text-muted">
+                            <i class="fa fa-user" aria-hidden="true"></i> {{course.author}} </small>
+                        </p>
+                      </div>
+                      <div class="col">
+                        <p class="card-text text-right">
+                          <small class="text-muted">
+                            <i class="fa fa-calendar" aria-hidden="true"></i> {{course.time | date : 'short'}}</small>
+                        </p>
+                      </div>
 
-            </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-        </div>
-      </div>
-      </div>
+
+    </div>
+
+    </div>
+    <div class="col-sm-3 col-xs-12">
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Features</h5>
+              <ul class="list-group list-group-flush">
+
+                  <li class="list-group-item" *ngFor="let user of Users | async">{{user.displayName}}</li>
+                </ul>
+              </div>
+              </div>
+
+    </div>
+
+  </div>
 
 
 
@@ -41,8 +68,8 @@
                   </div>
                 <div class="form-group">
                   <label for="exampleFormControlTextarea1">Description</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" formControlName="description"  rows="3"></textarea>
-                </div>
+                  <textarea [froalaEditor]  formControlName="description"></textarea>
+                   </div>
 
 
 

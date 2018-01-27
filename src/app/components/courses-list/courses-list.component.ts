@@ -18,11 +18,13 @@ import * as firebase from 'firebase/app';
 })
 export class CoursesListComponent implements OnInit {
   coursesObservable: Observable<any[]>;
+  Users: Observable<any[]>;
   myForm: FormGroup;
   isAuthenticate: boolean;
   constructor(private db: AngularFireDatabase) { }
   ngOnInit() {
     this.coursesObservable = this.getCourses('/courses');
+    this.Users = this.getUsers('/users');
     this.myForm = new FormGroup({
       title: new FormControl('', Validators.required),
       link: new FormControl('', Validators.required),
@@ -31,6 +33,13 @@ export class CoursesListComponent implements OnInit {
  this.isAuthenticate = this.getSession();
   }
   getCourses(listPath): Observable<any[]> {
+    const  query = {
+        orderByChild: 'time'
+      };
+
+    return this.db.list(listPath).valueChanges();
+  }
+  getUsers(listPath): Observable<any[]> {
     return this.db.list(listPath).valueChanges();
   }
   getSession() {
@@ -39,8 +48,6 @@ export class CoursesListComponent implements OnInit {
   onSubmit(formData) {
     if (formData.valid) {
       const key = formData.value.title.replace(/\s/g, '-');
-      // const newPostKey = firebase.database().ref().child('courses').push().key;
-      // const userRef = this.db.list(`courses/${key}`);
       const author = JSON.parse(sessionStorage.getItem('currentUser'));
       const data: Blog  = {
         title: formData.value.title,
