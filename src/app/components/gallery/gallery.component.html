@@ -1,0 +1,8 @@
+
+<div class="row">
+    <div class="col-sm-6 p-0"  *ngFor="let img of imageData | async">
+<div class="card">
+    <img class="card-img-top" [src]="img.url">
+    </div>
+</div>
+</div>

@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css";
+body {
+  padding-top: 54px;
+  background: #f1f1f1 !important;
+}
+
+.invalid-feedback
+{
+  display: block !important;
+}
+.card{
+border: 0 !important;
+border-radius: 0 !important;
+}
+.card-body {
+    padding: 40px !important;
+}
+.card-footer {
+
+  border-top: 0 !important;
+}

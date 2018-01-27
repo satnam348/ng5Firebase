@@ -1,0 +1,95 @@
+<!-- <div class="form-container">
+    <a routerLink="/login" id="goback">Go back</a>
+
+    <h2>Join now</h2>
+
+    <span class="error" *ngIf="error" >{{ error }}</span>
+
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+
+        <div class="form-group ">
+            <label for="name">Name</label>
+            <input id="name" name="name" class="form-control" type="text" formControlName="name" required>
+             <p *ngIf="myForm.controls.name.errors">This field is required!</p>
+
+
+        </div>
+        <div class="form-group ">
+            <label for="email">Email</label>
+            <input id="email" name="email"  class="form-control" type="text" formControlName="email" required>
+        </div>
+        <div class="form-group ">
+            <label for="Password">Password</label>
+            <input id="Password" name="email"  class="form-control" type="text" formControlName="password" required>
+        </div>
+        <div class="form-group ">
+            <label for="Confirm">Confirm Password</label>
+            <input id="Confirm" name="email"  class="form-control" type="text" formControlName="confrimPassword" required>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Send Message" [disabled]="!myForm.valid">
+          </div>
+    </form>
+  </div>
+ -->
+<!--
+  This was created based on the Dribble shot by Deepak Yadav that you can find at https://goo.gl/XRALsw
+  I am @hurickkrugner on Twitter or @hk95 on GitHub. Feel free to message me anytime.
+-->
+
+<section class="user  mt-5 pt-5">
+    <div class="user_options-container">
+      <div class="user_options-text">
+        <div class="user_options-unregistered">
+          <h2 class="user_unregistered-title">Don't have an account?</h2>
+          <p class="user_unregistered-text">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art fap.</p>
+          <button class="user_unregistered-signup" id="signup-button" >Sign up</button>
+        </div>
+
+        <div class="user_options-registered">
+          <h2 class="user_registered-title">Have an account?</h2>
+          <p class="user_registered-text">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art fap.</p>
+          <button class="user_registered-login" id="login-button" routerLink="/login-email">Login</button>
+        </div>
+      </div>
+
+      <div class="user_options-forms bounceLeft" id="user_options-forms">
+        <div class="user_forms-login">
+          <h2 class="forms_title">Login</h2>
+          <form class="forms_form">
+            <fieldset class="forms_fieldset">
+              <div class="forms_field">
+                <input type="email" placeholder="Email" class="forms_field-input" required autofocus />
+              </div>
+              <div class="forms_field">
+                <input type="password" placeholder="Password" class="forms_field-input" required />
+              </div>
+            </fieldset>
+            <div class="forms_buttons">
+              <button type="button" class="forms_buttons-forgot">Forgot password?</button>
+              <input type="submit" value="Log In" class="forms_buttons-action">
+            </div>
+          </form>
+        </div>
+        <div class="user_forms-signup">
+          <h2 class="forms_title">Sign Up</h2>
+          <form class="forms_form" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+            <fieldset class="forms_fieldset">
+              <div class="forms_field">
+                <input type="text" placeholder="Full Name" class="forms_field-input" formControlName="name" required />
+              </div>
+              <div class="forms_field">
+                <input type="email" placeholder="Email" class="forms_field-input" formControlName="email" required />
+              </div>
+              <div class="forms_field">
+                <input type="password" placeholder="Password" class="forms_field-input" formControlName="password" required />
+              </div>
+            </fieldset>
+            <div class="forms_buttons">
+              <input type="submit"  value="Sign up" class="forms_buttons-action" [disabled]="!myForm.valid">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>

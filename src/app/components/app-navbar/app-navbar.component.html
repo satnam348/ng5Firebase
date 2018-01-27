@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+          <a class="nav-link" routerLink="/profile">Account</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/blog">Blog</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/gallery">Gallery</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/upload">Upload</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" *ngIf="isSignOut">
+        <button type="button" class="btn btn-link" (click)="signOut()">Sign Out</button>
+      </form>
+      <form class="form-inline my-2 my-lg-0" *ngIf="!isSignOut">
+          <button type="button" class="btn btn-link" routerLink="/login" >Login</button>
+        </form>
+  </div>
+</nav>
