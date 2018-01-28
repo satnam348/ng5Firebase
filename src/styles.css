@@ -23,3 +23,6 @@ border-radius: 0 !important;
 .fr-wrapper{
   min-height: 200px;
 }
+.fr-wrapper a[href*="https://www.froala.com/wysiwyg-editor"] {
+display: none !important;
+}
