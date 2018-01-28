@@ -1,3 +1,24 @@
 .fr-wrapper{
   height: 200px;
 }
+.card-img-overlay {
+  position: absolute;
+  top: 0;
+  right: 0 !important;
+  bottom: 0;
+  left: auto;
+  padding: 0;
+
+}
+.delete{
+  border: 0;
+  background: transparent;
+  color: #7b7a7b;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+}
+.card:hover  .delete
+{
+  display: inline-block;
+}

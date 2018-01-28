@@ -10,7 +10,7 @@ body {
   display: block !important;
 }
 .card{
-border: 0 !important;
+
 border-radius: 0 !important;
 }
 .card-body {
@@ -21,5 +21,5 @@ border-radius: 0 !important;
   border-top: 0 !important;
 }
 .fr-wrapper{
-  height: 200px;
+  min-height: 200px;
 }

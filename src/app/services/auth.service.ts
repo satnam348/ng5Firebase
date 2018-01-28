@@ -1,3 +1,4 @@
+import { ADMIN } from './../models/admin.config';
 import { Injectable , EventEmitter } from '@angular/core';
 import { FirebaseApp } from 'angularfire2';
 import { Router } from '@angular/router';
@@ -7,6 +8,8 @@ import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import 'firebase/storage';
 import { User } from '../models/user.model';
+
+
 @Injectable()
 export class AuthService {
   public eventEmit  = new EventEmitter();
@@ -45,17 +48,22 @@ export class AuthService {
           if (user != null) {
             this.eventEmit.next(user);
             const data: User = {
-              uid: user.uid,
+              uid: btoa(user.uid),
               email: user.email,
               displayName: name,
            };
             sessionStorage.setItem('currentUser', JSON.stringify(data));
             sessionStorage.setItem('session', 'true');
+            this.SiteAdmin(data.uid);
            // this.router.navigate(['/profile']);
           } else {
             this.router.navigate(['/login']);
           }
         });
+   }
+   public SiteAdmin(uid) {
+     const isSiteAdmin = (uid === ADMIN.uid ) ? 'true' : 'false';
+     sessionStorage.setItem('isSiteAdmin', isSiteAdmin);
    }
    public sendVerificationMail() {
     firebase.auth().onAuthStateChanged((user) => {
@@ -84,6 +92,7 @@ export class AuthService {
     firebase.auth().signOut().then(() => {
       this.eventEmit.next(null);
       sessionStorage.setItem('session', 'false');
+      sessionStorage.remove('isSiteAdmin');
       console.log('Login Out');
     }).catch((error) => {
       console.log(error);
@@ -91,10 +100,13 @@ export class AuthService {
    }
 
    public sendPasswordResetEmail(email) {
-    return firebase.auth().sendPasswordResetEmail(email).then(() =>{
+    return firebase.auth().sendPasswordResetEmail(email).then(() => {
       console.log('email send');
     }).catch(function(error) {
       console.log(error);
     });
    }
+   getSession() {
+    return JSON.parse(sessionStorage.getItem('session')) && JSON.parse(sessionStorage.getItem('isSiteAdmin'));
+    }
 }

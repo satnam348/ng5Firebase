@@ -1,9 +1,11 @@
+import { AuthService } from './../../services/auth.service';
 import { FirebaseApp } from 'angularfire2';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
+
 
 // declare var firebase: any;
 
@@ -23,8 +25,10 @@ export class UploadComponent {
   public folder = 'images';
   selectedFiles: any;
   imageData: Observable<any[]>;
-  constructor(public af: AngularFireDatabase, public app: FirebaseApp) {
+  isAuthenticate: Boolean;
+  constructor(public af: AngularFireDatabase, public app: FirebaseApp, public _AuthService: AuthService) {
     this.imageData = this.getImages('/images');
+    this.isAuthenticate = this._AuthService.getSession();
   }
 
   detectFiles(event) {

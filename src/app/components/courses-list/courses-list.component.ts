@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../../services/auth.service';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormControl , Validators } from '@angular/forms';
 import * as firebase from 'firebase/app';
+
  interface Blog {
   title: string;
   link: string;
@@ -21,7 +23,9 @@ export class CoursesListComponent implements OnInit {
   Users: Observable<any[]>;
   myForm: FormGroup;
   isAuthenticate: boolean;
-  constructor(private db: AngularFireDatabase) { }
+  siteAdmin: boolean;
+  @ViewChild('target') private myScrollContainer: ElementRef;
+  constructor(private db: AngularFireDatabase, public _AuthService: AuthService) { }
   ngOnInit() {
     this.coursesObservable = this.getCourses('/courses');
     this.Users = this.getUsers('/users');
@@ -31,20 +35,17 @@ export class CoursesListComponent implements OnInit {
       description: new FormControl('', Validators.required)
     });
  this.isAuthenticate = this.getSession();
+ this.siteAdmin = this._AuthService.getSession();
   }
   getCourses(listPath): Observable<any[]> {
-    const  query = {
-        orderByChild: 'time'
-      };
-
     return this.db.list(listPath).valueChanges();
   }
   getUsers(listPath): Observable<any[]> {
     return this.db.list(listPath).valueChanges();
   }
   getSession() {
-  return JSON.parse(sessionStorage.getItem('session'));
-  }
+    return JSON.parse(sessionStorage.getItem('session')) ;
+    }
   onSubmit(formData) {
     if (formData.valid) {
       const key = formData.value.title.replace(/\s/g, '-');
@@ -62,5 +63,21 @@ export class CoursesListComponent implements OnInit {
     }
     this.myForm.reset();
   }
-
+editPost(post) {
+  this.myForm = new FormGroup({
+    title: new FormControl(post.title , Validators.required),
+    link: new FormControl(post.link, Validators.required),
+    description: new FormControl(post.description , Validators.required)
+  });
+ const at = this.myScrollContainer.nativeElement;
+ at.scrollIntoView();
+}
+clearPost() {
+  this.myForm.reset();
+}
+removePost(post) {
+  const key = post.title.replace(/\s/g, '-');
+  const referencePath = `courses/${key}`;
+  firebase.database().ref(referencePath).remove();
+}
 }

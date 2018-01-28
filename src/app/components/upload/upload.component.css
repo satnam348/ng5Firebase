@@ -15,3 +15,10 @@
   font-size: 25px;
   cursor: pointer;
 }
+.card-img-top
+{
+  border-radius: 0 !important;
+}
+.card{
+  border:1px solid #ccc;
+}

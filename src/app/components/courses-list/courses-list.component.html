@@ -5,6 +5,11 @@
             <div class="col-sm-12 mb-4" *ngFor="let course of coursesObservable | async">
                 <div class="card">
                   <div class="card-body">
+                      <div class="card-img-overlay  mr-2 mt-2" *ngIf="siteAdmin">
+                          <button  class=" delete " (click)="editPost(course)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                          <button  class="  delete " (click)="removePost(course)"> <i class="fa fa-times" aria-hidden="true"></i></button>
+
+                      </div>
                     <h5 class="card-title">{{course.title}}</h5>
 
                     <p class="card-text" [innerHtml]="course.description"></p>
@@ -49,12 +54,12 @@
 
   </div>
 
+<div  #target></div>
+
+<div *ngIf="isAuthenticate"  >
 
 
-<div *ngIf="isAuthenticate">
-
-
-    <div class="card mt-5 ">
+    <div class="card mt-5 " >
         <div class="card-body">
             <h1>Add New Blog</h1>
             <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
@@ -74,6 +79,7 @@
 
 
                   <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="reset" class="btn btn-primary">Clear</button>
               </form>
         </div>
       </div>
