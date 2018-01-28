@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AppNavbarComponent implements OnInit {
   isSignOut: Boolean = false;
+  isShow: Boolean = false;
   constructor(public _AuthService: AuthService) { }
 ngOnInit() {
 
@@ -23,5 +24,7 @@ ngOnInit() {
 signOut() {
 this._AuthService.signOut();
 }
-
+navExpand() {
+  this.isShow = !this.isShow;
+}
 }
