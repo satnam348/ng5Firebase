@@ -26,3 +26,67 @@ border-radius: 0 !important;
 .fr-wrapper a[href*="https://www.froala.com/wysiwyg-editor"] {
 display: none !important;
 }
+.login-form .leftCol {
+  background-color: #F60;
+  color: #fff;
+}
+.login-form .bg-white {
+  background-color: #fff;
+}
+.login-form input {
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding: 6px 20px 6px 0;
+  font-size: 1rem;
+  font-weight: 300;
+  color: gray;
+  letter-spacing: 0.1rem;
+  -webkit-transition: border-color 0.2s ease-in-out;
+  transition: border-color 0.2s ease-in-out;
+  border-radius: 0;
+}
+.login-form input:focus {
+  border-bottom: 1px solid #ccc;
+  outline: 0;
+  box-shadow: none;
+}
+.login-form button.forward, .login-form button.submit {
+  padding: 10px 30px 10px 20px;
+}
+.login-form button.backward, .login-form button.forward, .login-form button.submit {
+  border: none;
+  color: #fff;
+  text-decoration: none;
+  transition: background .5s ease;
+  -moz-transition: background .5s ease;
+  -webkit-transition: background .5s ease;
+  -o-transition: background .5s ease;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: 400;
+  outline: 0;
+  text-align: center;
+  background: #409fff;
+  position: relative;
+  font-size: 15px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  line-height: 1;
+  padding: 10px 30px;
+}
+.bg-brand{
+  background: #409fff !important;
+}
+.legal{
+  font-size: 12px !important;
+}
+.google{
+  color: #d15141;
+}
+.fb{
+  color:#3b5998;
+}

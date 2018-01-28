@@ -8,7 +8,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import 'firebase/storage';
 import { User } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
-
+import { FormGroup, FormControl , Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,8 +17,17 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   user: Observable<User>;
   error: any;
+  myForm: FormGroup;
+  switchForget: Boolean = false;
   constructor(public Auth: AuthService, public af: AngularFireDatabase,
     public app: FirebaseApp, public afAuth: AngularFireAuth, private router: Router) {
+      this.myForm = new FormGroup({
+        email: new FormControl('', Validators.required),
+        password: new FormControl('', Validators.required)
+      });
+      this.Auth.eventEmitLogin.subscribe((data) => {
+      this.error = data.message;
+      });
 
 }
 
@@ -37,5 +46,17 @@ private oAuthLogin(provider) {
     this.Auth.updateUserData(credential.user);
      });
 }
-
+toggleSwitch() {
+  this.switchForget = !this.switchForget;
+}
+emailLogin(formData) {
+  if (formData.valid) {
+    this.Auth.signInWithEmailAndPassword(formData.value.email, formData.value.password);
+  }
+}
+forgetPassword(formData) {
+  if (formData.valid) {
+    this.Auth.sendPasswordResetEmail(formData.value.email);
+}
+}
 }

@@ -1,42 +1,4 @@
-<!-- <div class="form-container">
-    <a routerLink="/login" id="goback">Go back</a>
-
-    <h2>Join now</h2>
-
-    <span class="error" *ngIf="error" >{{ error }}</span>
-
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
-
-        <div class="form-group ">
-            <label for="name">Name</label>
-            <input id="name" name="name" class="form-control" type="text" formControlName="name" required>
-             <p *ngIf="myForm.controls.name.errors">This field is required!</p>
-
-
-        </div>
-        <div class="form-group ">
-            <label for="email">Email</label>
-            <input id="email" name="email"  class="form-control" type="text" formControlName="email" required>
-        </div>
-        <div class="form-group ">
-            <label for="Password">Password</label>
-            <input id="Password" name="email"  class="form-control" type="text" formControlName="password" required>
-        </div>
-        <div class="form-group ">
-            <label for="Confirm">Confirm Password</label>
-            <input id="Confirm" name="email"  class="form-control" type="text" formControlName="confrimPassword" required>
-        </div>
-        <div class="form-group">
-            <input class="btn btn-primary" type="submit" value="Send Message" [disabled]="!myForm.valid">
-          </div>
-    </form>
-  </div>
- -->
 <!--
-  This was created based on the Dribble shot by Deepak Yadav that you can find at https://goo.gl/XRALsw
-  I am @hurickkrugner on Twitter or @hk95 on GitHub. Feel free to message me anytime.
--->
-
 <section class="user  mt-5 pt-5">
     <div class="user_options-container">
       <div class="user_options-text">
@@ -93,3 +55,44 @@
       </div>
     </div>
   </section>
+
+-->
+
+  <div class="container mt-5 login-form" >
+        <div class="row">
+          <div class="col-sm-10 offset-sm-1">
+            <div class="row">
+              <div class="col-sm-7 bg-white p-5">
+                  <h3 >Please fill with your details</h3>
+                  <form class="mt-4" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                      <div class="form-group">
+
+                        <input type="text" class="form-control"  placeholder="Full Name" formControlName="name" required>
+                      </div>
+                      <div class="form-group">
+
+                        <input type="email" class="form-control" placeholder="Email" formControlName="email" required >
+                      </div>
+                      <div class="form-group">
+
+                          <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                        </div>
+                      <button type="submit" class="forward mt-4" [disabled]="!myForm.valid">Submit</button>
+                     <hr/>
+                       <p class="small">Already have an account?
+                          <a routerLink="/login">Sign in</a>
+                        </p>
+                    </form>
+              </div>
+              <div class="col-sm-5 leftCol p-5 text-center order-sm-first">
+                  <img class="mb-3" src="http://www.ansonika.com/mavia/img/registration_bg.svg">
+                  <h2>Registration</h2>
+                  <p>Tation argumentum et usu, dicit viderer evertitur te has. Eu dictas concludaturque usu, facete detracto patrioque
+                    an per, lucilius pertinacia eu vel.</p>
+                </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
