@@ -26,6 +26,7 @@ export class AuthService {
      const updates = {};
      updates['/users/' + user.uid] = data;
      firebase.database().ref().update(updates);
+     this.router.navigateByUrl('/profile');
 
   }
 
@@ -40,6 +41,7 @@ export class AuthService {
      const updates = {};
      updates['/users/' + user.uid] = data;
      firebase.database().ref().update(updates);
+     this.router.navigateByUrl('/profile');
    }
 
 
@@ -92,7 +94,7 @@ export class AuthService {
     firebase.auth().signOut().then(() => {
       this.eventEmit.next(null);
       sessionStorage.setItem('session', 'false');
-      sessionStorage.remove('isSiteAdmin');
+      sessionStorage.removeItem('isSiteAdmin');
       console.log('Login Out');
     }).catch((error) => {
       console.log(error);
