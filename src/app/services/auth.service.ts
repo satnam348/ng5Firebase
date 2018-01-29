@@ -55,6 +55,7 @@ export class AuthService {
               displayName: name,
            };
             sessionStorage.setItem('currentUser', JSON.stringify(data));
+            sessionStorage.setItem('UserData', JSON.stringify(user));
             sessionStorage.setItem('session', 'true');
             this.SiteAdmin(data.uid);
            // this.router.navigate(['/profile']);
@@ -95,6 +96,7 @@ export class AuthService {
       this.eventEmit.next(null);
       sessionStorage.setItem('session', 'false');
       sessionStorage.removeItem('isSiteAdmin');
+       sessionStorage.removeItem('UserData');
       console.log('Login Out');
     }).catch((error) => {
       console.log(error);

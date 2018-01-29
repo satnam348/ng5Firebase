@@ -27,7 +27,8 @@ border-radius: 0 !important;
 display: none !important;
 }
 .login-form .leftCol {
-  background-color: #F60;
+  background: #F60;
+  background: linear-gradient(135deg, #fd771f 0%, #F60 100%);
   color: #fff;
 }
 .login-form .bg-white {
@@ -69,7 +70,8 @@ display: none !important;
   font-weight: 400;
   outline: 0;
   text-align: center;
-  background: #409fff;
+  background: #057fe0;
+  background: linear-gradient(135deg, #05c8e0 0%, #057fe0 100%);
   position: relative;
   font-size: 15px;
   -webkit-border-radius: 3px;
@@ -78,8 +80,14 @@ display: none !important;
   line-height: 1;
   padding: 10px 30px;
 }
+.login-form button.forward:hover
+{
+  background: #057fe0;
+  background: linear-gradient(135deg, #04b2c7 0%, #0471c7 100%);
+}
 .bg-brand{
-  background: #409fff !important;
+  background: #409fff ;
+  background: linear-gradient(135deg, #05c8e0 0%, #057fe0 100%);
 }
 .legal{
   font-size: 12px !important;
@@ -89,4 +97,15 @@ display: none !important;
 }
 .fb{
   color:#3b5998;
+}
+.text-white{
+  color: #fff;
+}
+.border-r-dash{
+  border-left:2px dashed #EEEEEE;
+}
+.circle{
+  width:150px;
+  height:150px;
+  border-radius: 50%;
 }
