@@ -11,6 +11,7 @@ export class ProfileComponent implements OnInit {
 user: any;
 selectedFiles: any;
 folder: String = 'user';
+editUser: Boolean = false;
   constructor(public _auth: AuthService) { }
 
   ngOnInit() {
@@ -25,7 +26,9 @@ folder: String = 'user';
   detectFiles(event) {
     this.selectedFiles = event.target.files;
   }
-
+toggleEditUser() {
+  this.editUser = !this.editUser;
+}
   upload() {
     // Create a root reference
     const storageRef =  firebase.storage().ref();

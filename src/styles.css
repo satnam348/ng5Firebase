@@ -34,12 +34,12 @@ display: none !important;
 .login-form .bg-white {
   background-color: #fff;
 }
-.login-form input {
+.login-form input ,.login-form  textarea.form-control{
   background-color: transparent;
   padding: 0;
   border: 0;
   width: 100%;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #e8ebed;
   padding: 6px 20px 6px 0;
   font-size: 1rem;
   font-weight: 300;
@@ -49,15 +49,21 @@ display: none !important;
   transition: border-color 0.2s ease-in-out;
   border-radius: 0;
 }
-.login-form input:focus {
-  border-bottom: 1px solid #ccc;
-  outline: 0;
-  box-shadow: none;
+.login-form input:focus , .login-form  textarea.form-control:focus{
+
+      border-color: #777;
+      outline: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      color: #555;
+      -webkit-transition: all .3s ease;
+      transition: all .3s ease;
+
 }
-.login-form button.forward, .login-form button.submit {
+ button.forward  {
   padding: 10px 30px 10px 20px;
 }
-.login-form button.backward, .login-form button.forward, .login-form button.submit {
+  button.forward {
   border: none;
   color: #fff;
   text-decoration: none;
@@ -80,7 +86,7 @@ display: none !important;
   line-height: 1;
   padding: 10px 30px;
 }
-.login-form button.forward:hover
+ button.forward:hover
 {
   background: #057fe0;
   background: linear-gradient(135deg, #04b2c7 0%, #0471c7 100%);
@@ -104,8 +110,28 @@ display: none !important;
 .border-r-dash{
   border-left:2px dashed #EEEEEE;
 }
-.circle{
-  width:150px;
-  height:150px;
-  border-radius: 50%;
+@media only screen and (max-width:769px)
+{
+  .border-r-dash{
+    border-left:0;
+    border-top:2px dashed #EEEEEE;
+
+  }
+}
+.img{
+  max-width: 60% !important;
+}
+
+.img-box > i {
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  background: #54A7FF;
+  padding: 10px;
+  color: #fff;
+  border-radius: 100%;
+}
+.bg-border{
+
+  border-top:3px solid #057fe0;
 }
