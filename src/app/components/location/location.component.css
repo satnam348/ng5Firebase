@@ -1,0 +1,41 @@
+.custom-autocomplete .custom-autocomplete__dropdown a {
+text-align: left !important;
+}
+#search_places{
+
+}
+
+#search_places{
+  background-color: transparent;
+  height: auto;
+  border: 0;
+  width: 100%;
+  border-bottom: 2px solid #e8ebed;
+  padding: 6px 20px 6px 0;
+  font-size: 1rem;
+  font-weight: 300;
+  color: gray;
+  letter-spacing: 0.1rem;
+  -webkit-transition: border-color 0.2s ease-in-out;
+  transition: border-color 0.2s ease-in-out;
+  border-radius: 0;
+  margin-bottom: 1rem;
+}
+#search_places:focus {
+
+      border-color: #777;
+      outline: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      color: #555;
+      -webkit-transition: all .3s ease;
+      transition: all .3s ease;
+
+}
+.line.line-location{
+  position: static !important;
+  width:100% !important;
+}
+.custom-autocomplete__dropdown .heading {
+   padding: 0 !important;
+}

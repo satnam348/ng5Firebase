@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -19,6 +20,7 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/authguard.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { LocationComponent } from './components/location/location.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
    { path: 'blog', component: CoursesListComponent },
@@ -41,7 +43,8 @@ const routes: Routes = [
     LoginComponent,
     SignupComponent,
     EmailComponent,
-    ProfileComponent
+    ProfileComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ const routes: Routes = [
     NgbModule.forRoot(),
     RouterModule.forRoot(routes, { useHash: false}),
     FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    Ng4GeoautocompleteModule.forRoot()
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
