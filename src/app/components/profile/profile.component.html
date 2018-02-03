@@ -1,6 +1,6 @@
 
 
-<div class="container mt-5 login-form" *ngIf="user">
+<div class="container mt-5 login-form" *ngIf="currentUser">
   <div class="row">
     <div class="col-md-8 offset-sm-2">
 
@@ -8,7 +8,7 @@
       <div class="row" *ngIf="!editUser">
         <div class="col-md-6 bg-white p-5  text-center">
           <span class="img-box">
-            <img [src]="user.photoURL" class="img-thumbnail img " />
+            <img [src]="currentUser.photoURL" class="img-thumbnail img " />
             <i class="fa fa-pencil open-image" (click)="toggleEditUser() " for="profileImage" aria-hidden="true"></i>
             <input type="file" id="profileImage" style="display: none;" class="custom-file-input" multiple (change)="detectFiles($event)"
               #files>
@@ -16,13 +16,12 @@
 
 
 
-          <h6 class="mt-3">{{user.email }}</h6>
+          <h6 class="mt-3">{{currentUser.jobTitle }}</h6>
 
         </div>
         <div class="col-md-6 bg-white  border-r-dash p-5 text-center ">
-          <h5>Welcome {{user.displayName !=null ? user.displayName : 'User name' }}</h5>
-          <p>Tation argumentum et usu, dicit viderer evertitur te has. Eu dictas concludaturque usu, facete detracto patrioque
-            an per, lucilius pertinacia eu vel.</p>
+          <h5>Welcome {{currentUser.displayName !=null ? currentUser.displayName : 'User name' }}</h5>
+          <p>{{currentUser.description}}</p>
         </div>
       </div>
 
@@ -30,18 +29,18 @@
       <div class="row bg-border" *ngIf="editUser">
         <div class="col-md-12 bg-white p-5  text-center">
           <h3>Edit Profile</h3>
-          <form>
+          <form [formGroup]="myForm" (ngSubmit)="updateProfile(myForm,location)">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <input type="text" name="name" placeholder="Enter name" class="forms_field-input"  required
+                  <input type="text" name="name1" placeholder="Enter name" class="forms_field-input" formControlName="displayName"  required
                     autofocus />
                 </div>
               </div>
 
               <div class="col-md-6">
                   <div class="form-group">
-                      <input type="number" name="phoneNumber" placeholder="Phone no" class="forms_field-input"  required
+                      <input type="number" name="phoneNumber" placeholder="Phone no" class="forms_field-input"  formControlName="phoneNumber"
                       autofocus />
 
                   </div>
@@ -49,13 +48,13 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Job Title" class="forms_field-input"  required
+                        <input type="text" name="name2" placeholder="Job Title" class="forms_field-input"  formControlName="jobTitle"
                         autofocus />
                     </div>
                   </div>
                   <div class="col-md-6">
                       <div class="form-group">
-                        <input type="text" name="email" placeholder="Address" class="forms_field-input"  required
+                        <input type="text" name="email2" placeholder="Address" class="forms_field-input"  formControlName="location"
                           autofocus />
                       </div>
                     </div>
@@ -63,12 +62,12 @@
                       <div class="form-group">
                           <!-- <input type="text" name="name" placeholder="Location" class="forms_field-input"  required
                           autofocus /> -->
-                          <app-location></app-location>
+                          <app-location #location></app-location>
                       </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" name="name" placeholder="Country" class="forms_field-input"  required
+                            <input type="text" name="name3" placeholder="Country" class="forms_field-input"  formControlName="country"
                             autofocus />
                         </div>
                       </div>
@@ -77,12 +76,12 @@
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <textarea name="additional_message" class="form-control" style="height:150px;" placeholder="Hello world....write your messagere here!"></textarea>
+                            <textarea name="additional_message" class="form-control" style="height:150px;" formControlName="description" placeholder="Hello world....write your messagere here!"></textarea>
                         </div>
                       </div>
 
                     <div class="m-auto">
-                        <button type="submit" class="forward  mt-3" (click)="toggleEditUser() " >Update </button>
+                        <button type="submit" class="forward  mt-3" [disabled]="!myForm.valid">Update </button>
                       </div>
 
             </div>

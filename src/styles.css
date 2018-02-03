@@ -142,3 +142,57 @@ button.forward:disabled{
 
   border-top:3px solid #057fe0;
 }
+.facebook-btn {
+  border-color: #3b5998;
+  background-color: #3b5998;
+  color: #fff;
+}
+.facebook-btn, .twitter-btn, .google-btn {
+  text-transform: none;
+}
+.facebook-btn>i, .twitter-btn>i, .google-btn>i {
+  margin-top: 0;
+}
+.socicon-facebook:before {
+  content: "\e041";
+}
+.btn-sm {
+  padding: .375rem .75rem !important;
+}
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  margin-right: 0 !important;
+  margin-bottom: 12px;
+  margin-left: 0 !important;
+
+}
+.facebook-btn {
+  border-color: #3b5998 !important;
+  background-color:transparent;
+  color: #3b5998;
+}
+.twitter-btn {
+  border-color: #55acee !important;
+  background-color:transparent;
+  color: #55acee;
+}
+.facebook-btn:hover {
+  background-color: #3b5998;
+  color: #fff;
+}
+.twitter-btn:hover {
+  background-color: #55acee;
+  color: #fff;
+}
+.google-btn {
+  border-color: #dd4b39 !important;;
+  background-color:transparent;
+  color: #dd4b39;
+}
+.google-btn:hover {
+  border-color: #dd4b39;
+  background-color: #dd4b39;
+  color: #fff;
+}

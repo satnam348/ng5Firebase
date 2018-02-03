@@ -21,6 +21,8 @@ import { AuthGuard } from './guards/authguard.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { LocationComponent } from './components/location/location.component';
+import {MessagingService} from './services/messaging.service';
+
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
    { path: 'blog', component: CoursesListComponent },
@@ -59,7 +61,7 @@ const routes: Routes = [
     FroalaViewModule.forRoot(),
     Ng4GeoautocompleteModule.forRoot()
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, MessagingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

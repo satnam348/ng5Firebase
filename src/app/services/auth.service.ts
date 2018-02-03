@@ -14,6 +14,7 @@ import { User } from '../models/user.model';
 export class AuthService {
   public eventEmit  = new EventEmitter();
   public eventEmitLogin  = new EventEmitter();
+  public locationNotifier  = new EventEmitter();
   constructor(public af: AngularFireDatabase, public app: FirebaseApp, public afAuth: AngularFireAuth, private router: Router) {
   }
   public updateUserData(user, name?) {

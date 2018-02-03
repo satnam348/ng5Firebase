@@ -3,15 +3,16 @@ import { AuthService } from '../../services/auth.service';
 import * as firebase from 'firebase/app';
 import { User } from '../../models/user.model';
 import { FormGroup, FormControl , Validators } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 export interface User {
-  email: string;
-  photoURL?: string;
-  displayName?: string;
+   displayName?: string;
   phoneNumber?: string;
   jobTitle: string;
   location: string;
   country: string;
   description: string ;
+  email: string;
+  photoURL: string;
 
 }
 
@@ -26,6 +27,8 @@ selectedFiles: any;
 folder: String = 'user';
 editUser: Boolean = false;
 myForm: FormGroup;
+currentUser: any;
+currentLocation: any;
   constructor(public _auth: AuthService) { }
 
   ngOnInit() {
@@ -33,15 +36,27 @@ myForm: FormGroup;
   if (user != null) {
     this.user = user;
     console.log(this.user);
+     this.getUsers();
   }
-
+this._auth.locationNotifier.subscribe((data) => {
+this.currentLocation = data;
+});
  });
   }
   detectFiles(event) {
     this.selectedFiles = event.target.files;
   }
-toggleEditUser() {
+  getUsers() {
+   return firebase.database().ref('/users/' +  this.user.uid).on('value', ((snapshot) => {
+    this.currentUser = snapshot.val() ;
+    }));
+  }
+  autoCompleteCallback1(selectedData: any) {
+    console.log(selectedData);
+  }
+  toggleEditUser() {
   this.editUser = !this.editUser;
+  this.createForm();
 }
   upload() {
     // Create a root reference
@@ -75,15 +90,12 @@ toggleEditUser() {
   }
 createForm() {
   this.myForm = new FormGroup({
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-    phoneNumber: new FormControl('', Validators.required),
-    jobTitle: new FormControl('', Validators.required),
-    location: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
-
-
+    displayName: new FormControl(this.currentUser.displayName, Validators.required),
+    phoneNumber: new FormControl(this.currentUser.phoneNumber, Validators.required),
+    jobTitle: new FormControl(this.currentUser.jobTitle, Validators.required),
+    location: new FormControl(this.currentUser.location, Validators.required),
+    country: new FormControl(this.currentUser.country, Validators.required),
+    description: new FormControl(this.currentUser.description, Validators.required),
   });
 }
   updateUser(url) {
@@ -97,7 +109,27 @@ createForm() {
       // An error happened.
     });
   }
-  updateProfile() {
+  updatePhone(no) {
+    const user = firebase.auth().currentUser;
+    const data: any = {
+      phoneNumber: no
+    };
+    user.updateProfile(data).then(function() {
+      console.log('sucess');
+    }).catch(function(error) {
+      // An error happened.
+    });
+  }
+  updateProfile(user, loc) {
+    const key = this.user.uid;
+    const updates = {};
+    user.value.email = this.user.email;
+    user.value.location = this.currentLocation.description;
+    user.value.photoURL = this.user.photoURL;
+    updates['/users/' + key] = user.value;
+    firebase.database().ref().update(updates);
+    this.updatePhone(user.value.phoneNumber);
+    this.editUser = false;
 
   }
 }

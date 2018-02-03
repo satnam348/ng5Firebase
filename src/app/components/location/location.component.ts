@@ -1,4 +1,5 @@
 import { Component, OnInit , ViewEncapsulation } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 export interface Settings {
   geoPredictionServerUrl?: string;
   geoLatLangServiceUrl?: string;
@@ -32,7 +33,7 @@ export interface Settings {
 })
 export class LocationComponent implements OnInit {
   userSettings: Settings;
-  constructor() { }
+  constructor(public _AuthService: AuthService) { }
 
   ngOnInit() {
 
@@ -49,6 +50,7 @@ export class LocationComponent implements OnInit {
      this.userSettings = Object.assign({}, this.userSettings) ;  // Very Important Line to add after modifying settings.
   }
   autoCompleteCallback1(selectedData: any) {
-    // do any necessery stuff.
+    this._AuthService.locationNotifier.next(selectedData.data);
+   console.log(selectedData);
 }
 }

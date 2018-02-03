@@ -9,6 +9,7 @@ import 'firebase/storage';
 import { User } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormControl , Validators } from '@angular/forms';
+import {MessagingService} from '../../services/messaging.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,8 +19,9 @@ export class LoginComponent {
   user: Observable<User>;
   error: any;
   myForm: FormGroup;
+  message;
   switchForget: Boolean = false;
-  constructor(public Auth: AuthService, public af: AngularFireDatabase,
+  constructor(public Auth: AuthService, public af: AngularFireDatabase, public msgService: MessagingService ,
     public app: FirebaseApp, public afAuth: AngularFireAuth, private router: Router) {
       this.myForm = new FormGroup({
         email: new FormControl('', Validators.required),
@@ -28,7 +30,12 @@ export class LoginComponent {
       this.Auth.eventEmitLogin.subscribe((data) => {
       this.error = data.message;
       });
-
+this.pushNotify();
+}
+pushNotify() {
+  this.msgService.getPermission();
+  this.msgService.receiveMessage();
+  this.message = this.msgService.currentMessage;
 }
 
 loginFb() {
