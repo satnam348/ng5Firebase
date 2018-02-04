@@ -50,7 +50,8 @@ loginGoogle() {
 private oAuthLogin(provider) {
   return this.afAuth.auth.signInWithPopup(provider)
   .then((credential) => {
-    this.Auth.updateUserData(credential.user);
+    this.Auth.notification('User Login');
+    this.router.navigateByUrl('/profile');
      });
 }
 toggleSwitch() {

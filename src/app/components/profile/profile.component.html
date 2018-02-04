@@ -2,7 +2,7 @@
 
 <div class="container mt-5 login-form" *ngIf="currentUser">
   <div class="row">
-    <div class="col-md-8 offset-sm-2">
+    <div class="col-md-8 offset-md-2">
 
       <!--ghggjgj-->
       <div class="row" *ngIf="!editUser">
@@ -10,13 +10,18 @@
           <span class="img-box">
             <img [src]="currentUser.photoURL" class="img-thumbnail img " />
             <i class="fa fa-pencil open-image" (click)="toggleEditUser() " for="profileImage" aria-hidden="true"></i>
-            <input type="file" id="profileImage" style="display: none;" class="custom-file-input" multiple (change)="detectFiles($event)"
-              #files>
+
           </span>
 
+          <p class="file mt-2 mb-0">
+              <input type="file" id="profileImage"  multiple (change)="detectFiles($event)"
+              #files />
+              <label for="file">Upload your image</label>
+            </p>
 
 
-          <h6 class="mt-3">{{currentUser.jobTitle }}</h6>
+
+          <h6 class="">{{currentUser.jobTitle }}</h6>
 
         </div>
         <div class="col-md-6 bg-white  border-r-dash p-5 text-center ">

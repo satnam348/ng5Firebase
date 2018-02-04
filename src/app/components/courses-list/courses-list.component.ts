@@ -4,10 +4,10 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormControl , Validators } from '@angular/forms';
 import * as firebase from 'firebase/app';
+import {Routes, ActivatedRoute} from '@angular/router';
 
  interface Blog {
   title: string;
-  link: string;
   description: string;
   time: Date;
   author: string;
@@ -24,23 +24,25 @@ export class CoursesListComponent implements OnInit {
   myForm: FormGroup;
   isAuthenticate: boolean;
   siteAdmin: boolean;
+  currentRoute: any;
+  category = ['angular', 'javascript', 'node', 'jquery', 'angularjs' ];
   @ViewChild('target') private myScrollContainer: ElementRef;
-  constructor(private db: AngularFireDatabase, public _AuthService: AuthService) { }
+  constructor(private db: AngularFireDatabase, public _AuthService: AuthService, private route: ActivatedRoute) { }
   ngOnInit() {
-    this.coursesObservable = this.getCourses('/courses');
-    this.Users = this.getUsers('/users');
+    this.route.params.subscribe(params => {
+      console.log(params);
+      this.currentRoute = params.category;
+      this.coursesObservable = this.getCourses(`courses/${this.currentRoute}`);
+    });
     this.myForm = new FormGroup({
       title: new FormControl('', Validators.required),
-      link: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required)
     });
  this.isAuthenticate = this.getSession();
  this.siteAdmin = this._AuthService.getSession();
+
   }
   getCourses(listPath): Observable<any[]> {
-    return this.db.list(listPath).valueChanges();
-  }
-  getUsers(listPath): Observable<any[]> {
     return this.db.list(listPath).valueChanges();
   }
   getSession() {
@@ -48,17 +50,16 @@ export class CoursesListComponent implements OnInit {
     }
   onSubmit(formData) {
     if (formData.valid) {
-      const key = formData.value.title.replace(/\s/g, '-');
+      const key = formData.value.title.replace(/\s/g, '-').replace('.', '').toLocaleLowerCase();
       const author = JSON.parse(sessionStorage.getItem('currentUser'));
       const data: Blog  = {
         title: formData.value.title,
-        link: formData.value.link,
         description: formData.value.description,
         time: new Date(),
         author: author.email
       };
       const updates = {};
-      updates['/courses/' + key] = data;
+      updates[`/courses/${this.currentRoute}/` + key] = data;
       firebase.database().ref().update(updates);
     }
     this.myForm.reset();
@@ -66,7 +67,6 @@ export class CoursesListComponent implements OnInit {
 editPost(post) {
   this.myForm = new FormGroup({
     title: new FormControl(post.title , Validators.required),
-    link: new FormControl(post.link, Validators.required),
     description: new FormControl(post.description , Validators.required)
   });
  const at = this.myScrollContainer.nativeElement;

@@ -15,20 +15,8 @@ export class AuthService {
   public eventEmit  = new EventEmitter();
   public eventEmitLogin  = new EventEmitter();
   public locationNotifier  = new EventEmitter();
+  public notify  = new EventEmitter();
   constructor(public af: AngularFireDatabase, public app: FirebaseApp, public afAuth: AngularFireAuth, private router: Router) {
-  }
-  public updateUserData(user, name?) {
-    const data: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName ? user.displayName : name ,
-      photoURL: user.photoURL
-    };
-     const updates = {};
-     updates['/users/' + user.uid] = data;
-     firebase.database().ref().update(updates);
-     this.router.navigateByUrl('/profile');
-
   }
 
   public updateUserDatafromSignUp(user, name) {
@@ -43,6 +31,7 @@ export class AuthService {
      updates['/users/' + user.uid] = data;
      firebase.database().ref().update(updates);
      this.router.navigateByUrl('/profile');
+     this.notification('Profile Update');
    }
 
 
@@ -59,8 +48,39 @@ export class AuthService {
             sessionStorage.setItem('UserData', JSON.stringify(user));
             sessionStorage.setItem('session', 'true');
             this.SiteAdmin(data.uid);
-           // this.router.navigate(['/profile']);
+            const uid = user.uid;
+            const userStatusDatabaseRef = firebase.database().ref(`/users/${uid}/status`);
+            const isOfflineForDatabase = {
+              state: 'offline',
+              last_changed: firebase.database.ServerValue.TIMESTAMP,
+          };
+          const isOnlineForDatabase = {
+              state: 'online',
+              last_changed: firebase.database.ServerValue.TIMESTAMP,
+          };
+          firebase.database().ref('.info/connected').on('value', function (snapshot) {
+            // If we're not currently connected, don't do anything.
+            if (snapshot.val() == false) {
+                return;
+            }
+                        // If we are currently connected, then use the 'onDisconnect()'
+            // method to add a set which will only trigger once this
+            // client has disconnected by closing the app,
+            // losing internet, or any other means.
+            userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function () {
+                // The promise returned from .onDisconnect().set() will
+                // resolve as soon as the server acknowledges the onDisconnect()
+                // request, NOT once we've actually disconnected:
+                // https://firebase.google.com/docs/reference/js/firebase.database.OnDisconnect
+
+                // We can now safely set ourselves as 'online' knowing that the
+                // server will mark us as offline once we lose connection.
+                userStatusDatabaseRef.set(isOnlineForDatabase);
+            });
+        });
+            // this.router.navigate(['/profile']);
           } else {
+            this.notification('Authentication Failed');
             this.router.navigate(['/login']);
           }
         });
@@ -85,7 +105,7 @@ export class AuthService {
     then(() => {
       this.eventEmit.next();
       this.router.navigateByUrl('/profile');
-      console.log('Login');
+      this.notification('Login Sucessfull');
     }).
     catch((error) => {
       console.log(error);
@@ -98,7 +118,7 @@ export class AuthService {
       sessionStorage.setItem('session', 'false');
       sessionStorage.removeItem('isSiteAdmin');
        sessionStorage.removeItem('UserData');
-      console.log('Login Out');
+       this.notification('User LogOut');
     }).catch((error) => {
       console.log(error);
     });
@@ -113,5 +133,8 @@ export class AuthService {
    }
    getSession() {
     return JSON.parse(sessionStorage.getItem('session')) && JSON.parse(sessionStorage.getItem('isSiteAdmin'));
+    }
+    public notification(data) {
+       this.notify.next(data);
     }
 }

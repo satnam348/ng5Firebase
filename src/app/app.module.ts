@@ -22,10 +22,11 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { LocationComponent } from './components/location/location.component';
 import {MessagingService} from './services/messaging.service';
+import { ModalDirective } from './components/gallery/model.directive';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-   { path: 'blog', component: CoursesListComponent },
+    { path: 'question/:category', component: CoursesListComponent },
     { path: 'gallery', component: GalleryComponent },
      { path: 'upload', component: UploadComponent , canActivate: [AuthGuard]},
      { path: 'login', component: LoginComponent },
@@ -46,7 +47,8 @@ const routes: Routes = [
     SignupComponent,
     EmailComponent,
     ProfileComponent,
-    LocationComponent
+    LocationComponent,
+    ModalDirective
   ],
   imports: [
     BrowserModule,

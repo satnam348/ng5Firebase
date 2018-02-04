@@ -5,3 +5,27 @@
 .card{
   border:0 !important;
 }
+.modal-img{
+  position: absolute;
+  top: 0;
+  z-index: 9999;
+  margin-top: 5vh;
+}
+.modal-img img{
+  max-width: 100%;
+}
+.backdrop{
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1999;
+}
+.close-modal{
+  position: absolute;
+  right: 15px;
+  top:15px;
+  z-index: 9999;
+}

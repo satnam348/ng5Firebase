@@ -1,7 +1,7 @@
 <div class="row mt-4">
-  <div class="col-sm-9 col-xs-12">
+  <div class="col-md-9 col-xs-12">
     <div class="row ">
-      <div class="col-sm-12 mb-4" *ngFor="let course of coursesObservable | async">
+      <div class="col-md-12 mb-4" *ngFor="let course of coursesObservable | async">
         <div class="card">
           <div class="card-body">
             <div class="card-img-overlay  mr-2 mt-2" *ngIf="siteAdmin">
@@ -15,9 +15,8 @@
             </div>
             <h5 class="card-title">{{course.title}}</h5>
 
-            <p class="card-text" [innerHtml]="course.description"></p>
-            <a href="{{course.link}}" target="_blank" class="card-link">Go To Course</a>
-          </div>
+            <div class="card-text" [innerHtml]="course.description"></div>
+            </div>
           <div class="card-footer text-muted">
 
             <div class="row">
@@ -42,16 +41,31 @@
     </div>
 
   </div>
-  <div class="col-sm-3 col-xs-12">
+  <div class="col-md-3 col-xs-12">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Features</h5>
+        <h5 class="card-title">Category</h5>
         <ul class="list-group list-group-flush">
 
-          <li class="list-group-item" *ngFor="let user of Users | async">{{user.displayName}}</li>
+          <li class="list-group-item" *ngFor="let items of category">
+            <a routerLink="/question/{{items}}" class="text-capitalize">{{items}}</a>
+
         </ul>
       </div>
     </div>
+
+    <div class="card mt-4 login-form">
+        <div class="card-body">
+          <h5 class="card-title">Add Category</h5>
+          <form  >
+              <div class="form-group">
+
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="title" placeholder="Add Category">
+              </div>
+              <button type="submit" class="forward btn-block" >ADD</button>
+              </form>
+        </div>
+      </div>
 
   </div>
 
@@ -64,26 +78,22 @@
 
   <div class="card mt-5 ">
     <div class="card-body">
-      <h1>Add New Blog</h1>
+      <h2 class="text-capitalize">Enter your question for {{currentRoute}}</h2>
       <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
         <div class="form-group">
-          <label for="exampleFormControlInput1">Tittle</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="title" placeholder="name@example.com">
+          <label for="exampleFormControlInput1" class="text-bold">Question</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="title" placeholder="Enter you question" required>
         </div>
+
         <div class="form-group">
-          <label for="exampleFormControlInput1">Link Url</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="link" placeholder="name@example.com">
-        </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Description</label>
-          <textarea [froalaEditor] formControlName="description"></textarea>
+          <label for="exampleFormControlTextarea2" class="text-bold">Answer</label>
+          <textarea [froalaEditor] formControlName="description" required  id="exampleFormControlTextarea2"></textarea>
         </div>
 
-
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-primary">Clear</button>
+        <button type="submit" class="forward" [disabled]="!myForm.valid">Submit</button>
+        <button type="reset" class="forward">Clear</button>
       </form>
     </div>
   </div>
 </div>
+

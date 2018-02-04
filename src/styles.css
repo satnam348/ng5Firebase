@@ -196,3 +196,6 @@ button.forward:disabled{
   background-color: #dd4b39;
   color: #fff;
 }
+.text-bold{
+font-weight: bold;
+}

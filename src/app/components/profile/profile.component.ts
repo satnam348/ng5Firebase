@@ -45,6 +45,7 @@ this.currentLocation = data;
   }
   detectFiles(event) {
     this.selectedFiles = event.target.files;
+    this.upload();
   }
   getUsers() {
    return firebase.database().ref('/users/' +  this.user.uid).on('value', ((snapshot) => {
@@ -103,8 +104,9 @@ createForm() {
     const data: any = {
         photoURL: url
     };
-    user.updateProfile(data).then(function() {
+    user.updateProfile(data).then(() => {
       console.log('sucess');
+      this.updateProfilePic(url);
     }).catch(function(error) {
       // An error happened.
     });
@@ -124,12 +126,20 @@ createForm() {
     const key = this.user.uid;
     const updates = {};
     user.value.email = this.user.email;
-    user.value.location = this.currentLocation.description;
+    user.value.location = this.currentLocation ? this.currentLocation : this.currentUser.location  ;
     user.value.photoURL = this.user.photoURL;
     updates['/users/' + key] = user.value;
     firebase.database().ref().update(updates);
     this.updatePhone(user.value.phoneNumber);
     this.editUser = false;
-
+    this._auth.notification('Profile Updated');
+  }
+  updateProfilePic(user) {
+    const key = this.user.uid;
+    const updates = {};
+        this.currentUser.photoURL = user;
+    updates['/users/' + key] = this.currentUser;
+    firebase.database().ref().update(updates);
+    this._auth.notification('Profile Updated');
   }
 }

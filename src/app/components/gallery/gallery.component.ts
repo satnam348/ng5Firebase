@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 @Component({
@@ -8,6 +8,9 @@ import { Observable } from 'rxjs/Observable';
 })
 export class GalleryComponent implements OnInit {
   imageData: Observable<any[]>;
+  slideUrl: string;
+  intialView: number;
+  openLightBox: Boolean = false;
   constructor(public af: AngularFireDatabase) { }
 
   ngOnInit() {
@@ -16,5 +19,15 @@ export class GalleryComponent implements OnInit {
 
       getImages(listPath) {
         return this.af.list(listPath).valueChanges();
+      }
+      openSlide(item) {
+        this.intialView = window.scrollY;
+        window.scrollTo(0, 0);
+        this.openLightBox = true;
+      this.slideUrl = item;
+      }
+      closeSlide() {
+        this.openLightBox = false;
+        window.scrollTo(0,  this.intialView );
       }
 }
