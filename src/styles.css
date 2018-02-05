@@ -124,6 +124,9 @@ button.forward:disabled{
     border-top:2px dashed #EEEEEE;
 
   }
+  .card-body {
+    padding: 40px 20px !important;
+}
 }
 .img{
   max-width: 60% !important;
