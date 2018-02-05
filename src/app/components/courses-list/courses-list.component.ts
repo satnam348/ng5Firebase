@@ -43,14 +43,19 @@ export class CoursesListComponent implements OnInit {
 
   }
   getCourses(listPath): Observable<any[]> {
-    return this.db.list(listPath).valueChanges();
+    const query = {
+      query: {
+        orderByChild: 'time'
+      }
+    };
+    return this.db.list(listPath, ref => ref.limitToLast(100)).valueChanges();
   }
   getSession() {
     return JSON.parse(sessionStorage.getItem('session')) ;
     }
   onSubmit(formData) {
     if (formData.valid) {
-      const key = formData.value.title.replace(/\s/g, '-').replace('.', '').toLocaleLowerCase();
+      const key = formData.value.title.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s/g, '-').toLocaleLowerCase();
       const author = JSON.parse(sessionStorage.getItem('currentUser'));
       const data: Blog  = {
         title: formData.value.title,
@@ -76,8 +81,11 @@ clearPost() {
   this.myForm.reset();
 }
 removePost(post) {
-  const key = post.title.replace(/\s/g, '-');
-  const referencePath = `courses/${key}`;
+  const key = post.title.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s/g, '-').toLocaleLowerCase();
+  const referencePath = `courses/${this.currentRoute}/${key}`;
   firebase.database().ref(referencePath).remove();
+}
+sort(i){
+  console.log(i);
 }
 }
