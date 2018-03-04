@@ -23,6 +23,9 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { LocationComponent } from './components/location/location.component';
 import {MessagingService} from './services/messaging.service';
 import { ModalDirective } from './components/gallery/model.directive';
+import { PrivacyComponent } from './components/privacy/privacy.component';
+import { DisclaimerComponent } from './components/disclaimer/disclaimer.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -33,7 +36,11 @@ const routes: Routes = [
      { path: 'signup', component: SignupComponent },
      { path: 'login-email', component: EmailComponent },
      { path: 'profile', component: ProfileComponent , canActivate: [AuthGuard]},
-     { path: '**', component: LoginComponent },
+     { path: 'privacy-policy', component: PrivacyComponent },
+     { path: 'desclaimer', component: DisclaimerComponent },
+     { path: 'about', component: AboutUsComponent },
+     { path: '**', component: LoginComponent }
+
 
 ];
 
@@ -49,7 +56,10 @@ const routes: Routes = [
     EmailComponent,
     ProfileComponent,
     LocationComponent,
-    ModalDirective
+    ModalDirective,
+    PrivacyComponent,
+    DisclaimerComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,
